@@ -1,1 +1,1 @@
-# analysis-of-Sinsurin2017-replication-study
+This repository is part of a large replication project conducted by the Sports Science Replication Centre (https://ssreplicationcentre.com/). It includes the data and analyses for the replication study of "Side-to-side differences in lower extremity biomechanics during multi-directional jump landing in volleyball athletes" by Sinsurin, Srisangboriboon and Vachalathiti (2017).
