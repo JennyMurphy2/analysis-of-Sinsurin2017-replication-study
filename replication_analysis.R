@@ -52,8 +52,6 @@ anova_data <- rep_data_wider %>%
          id != "VB27",
          id != "VB40")
 
-
-
 anova_long_data <- anova_data %>%
   select(-c(nd_0_1:d_90_3)) %>%
   pivot_longer(cols = c(nd_0, nd_30, nd_60, nd_90,
@@ -119,7 +117,6 @@ ggplot(anova_long_data, aes(sample = ankle_df_angle)) +
   scale_x_continuous(name = "Observed Value") +
   scale_y_continuous(name = "Expected Normal")
 
-
 ### Boxplot 
 
 ggplot(anova_long_data, aes(x = direction, y = ankle_df_angle)) +
@@ -139,17 +136,15 @@ anova_long_data_afx
 
 summary(anova_long_data_afx)
 
-
 ### Assumption checking ---------
 
 # Normality test
 
-shapiro.test(anova_long_data_afx$lm$residuals) # residuals are not normally distributed
+shapiro.test(anova_long_data_afx$lm$residuals) # residuals are normally distributed
 
 anova_long_data %>% 
   dplyr::group_by(direction) %>% 
   rstatix::shapiro_test(ankle_df_angle)
-
 
 ### Outliers check -------
 
@@ -182,26 +177,21 @@ pes_rep
 
 # Original study values -------------------
 
-# Original study values
-
-
-original_values <- list(
+original_values <- data.frame(
   ori_pval = 0.00099, # conservative estimate as it is a relative p-value < 0.001
 N = 19,
 df1 = 3,
 df2 = 54
-) %>%
-  as.data.frame()
+)
 
-
-# Reproduce the F-value from the original study using the reported p-value
+# Estimate the F-value for the original study
 
 quantile = 1 - original_values$ori_pval
 
 ori_Fval <- qf(quantile, df1=original_values$df1, df2=original_values$df2)
 ori_Fval
 
-# Estimating the original effect size
+# Estimate the original effect size
 
 pes_orig <- eta.F(dfm=original_values$df1, dfe=original_values$df2, Fvalue=ori_Fval, a = 0.05) %>%
   as.data.frame() %>%
